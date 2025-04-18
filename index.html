@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KING ANJANA</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('https://i.ibb.co/FqmCZHV2/IMG-20250402-WA0051.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: monospace;
+    }
+    .neon {
+      color: #39ff14;
+      text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14;
+    }
+    #poweredText {
+      color: #39ff14;
+      text-shadow: 0 0 3px #39ff14, 0 0 5px #39ff14;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center h-screen">
+  <div class="bg-black bg-opacity-70 p-8 rounded-xl text-center text-white w-full max-w-md">
+    <h1 id="introText" class="text-xl mb-6"></h1>
+
+    <div id="accessArea" class="hidden">
+      <p class="mb-2">Enter Access Key:</p>
+      <input id="accessKey" type="text" class="w-full p-2 rounded text-black" placeholder="Enter Access Key" autocomplete="off" />
+      <button onclick="checkKey()" class="mt-4 bg-green-500 px-4 py-2 rounded">Submit</button>
+      <p id="error" class="text-red-400 mt-2 hidden">Entered Code Is Incorrect</p>
+      <a id="buyKeyBtn" href="https://wa.me/+94760105256?text=_*𝙷𝙸+𝙰𝙽𝙹𝙰𝙽𝙰+𝙱𝚄𝚈+𝚂𝙿𝙰𝙼+𝙰𝙲𝙴𝚂𝚂+𝙺𝙴𝚈🍃🕊️*_" class="hidden inline-block mt-4 bg-blue-600 px-4 py-2 rounded">Buy Access Key</a>
+    </div>
+
+    <div id="spamSection" class="hidden">
+      <h2 class="text-xl font-bold mb-4 neon">𝗔𝗡𝗝𝗔𝗡𝗔 𝗦𝗣𝗔𝗠 𝗦𝗘𝗡𝗗𝗘𝗥</h2>
+      <input id="whatsappNumber" type="text" class="w-full p-2 rounded text-black mb-2" placeholder="Enter Whatsapp Number with Country Code" />
+      <input id="spamCount" type="number" class="w-full p-2 rounded text-black mb-4" placeholder="Spam Count" />
+      <button onclick="sendSpam()" class="bg-green-600 px-4 py-2 rounded w-full">Send Spam</button>
+      <div id="spamStatus" class="mt-4 neon"></div>
+      <h3 id="poweredText" class="mt-6 hidden">Powered By KING ANJANA</h3>
+    </div>
+  </div>
+
+  <script>
+    const intro = "🍂🖤𝗞𝗜𝗡𝗚 𝗔𝗡𝗝𝗔𝗡𝗔 𝗕𝗕𝗛 💦🥵🍂";
+    let i = 0;
+    const introText = document.getElementById("introText");
+    const accessArea = document.getElementById("accessArea");
+    const error = document.getElementById("error");
+    const buyKeyBtn = document.getElementById("buyKeyBtn");
+    const spamSection = document.getElementById("spamSection");
+    const spamStatus = document.getElementById("spamStatus");
+    const poweredText = document.getElementById("poweredText");
+
+    function typeIntro() {
+      if (i < intro.length) {
+        introText.innerHTML += intro.charAt(i);
+        i++;
+        setTimeout(typeIntro, 100);
+      } else {
+        setTimeout(() => {
+          introText.classList.add("hidden");
+          accessArea.classList.remove("hidden");
+        }, 500);
+      }
+    }
+    typeIntro();
+
+    function checkKey() {
+      const key = document.getElementById("accessKey").value;
+      if (key === "𝙰𝙽𝙹𝙰𝙽𝙰-20070418") {
+        accessArea.classList.add("hidden");
+        spamSection.classList.remove("hidden");
+      } else {
+        error.classList.remove("hidden");
+        buyKeyBtn.classList.remove("hidden");
+      }
+    }
+
+    async function sendSpam() {
+      const number = document.getElementById("whatsappNumber").value;
+      const count = parseInt(document.getElementById("spamCount").value);
+      spamStatus.innerHTML = "<span class='neon'>Sending...</span>";
+
+      for (let i = 1; i <= count; i++) {
+        spamStatus.innerHTML += `<br/>Sending ${i}`;
+        await fetch(`https://api.green-api.com/waInstance7105227439/sendMessage/ebd168b08c52467d93a45535efc8100ca2fb93eb8e8f4b7f97`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chatId: `${number}@c.us`,
+            message: `Linked Device Notification ${i}`
+          })
+        });
+        await new Promise(r => setTimeout(r, 1000));
+      }
+
+      poweredText.classList.remove("hidden");
+      setTimeout(() => {
+        poweredText.classList.add("hidden");
+        spamStatus.innerHTML += "<br/><button class='bg-green-700 px-4 py-2 rounded mt-4'>Success</button>";
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
